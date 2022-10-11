@@ -28,9 +28,9 @@ The associated confusion matrix is as follows:
 
 ![nro_matrix](https://user-images.githubusercontent.com/107309793/194990991-17078f1a-2b78-47a5-938e-9390a0841820.png)
 
-The precision, or the reliability of the model to classify correctly, is determined by the ratio TP/(TP + FP). For high credit risk (classified as 0) the precision is 58/(58 + 3894) which is approximately 0.01. For the low credit risk, it is 13224/(13224 + 29) which is approximately 1.00. The low precision value of 0.01 indicates that there are a lot of false positives (it predicted 3894 high risk candidates when there were truly only 58.) The high precision value of 1.00 likely indicates overfitting for the low-risk classification.
+The precision, or the reliability of the model to predict the actual likelihood of high or low credit risk overall, is determined by the ratio TP/(TP + FP). For high credit risk (classified as 0) the precision is 58/(58 + 3894) which is approximately 0.01. For the low credit risk, it is 13224/(13224 + 29) which is approximately 1.00. The incredibly low precision value of 0.01 indicates that there are a lot of false positives (it predicted 3894 high risk candidates when there were truly only 58.) The high precision value of 1.00 likely indicates overfitting for the low-risk classification. A positive classification for high credit risk is very unlikely to be true in this case.
 
-The recall, or the ability of the model to 
+The recall, or the ability of the model to classify high-risk/low-risk correctly is determined by the ratio TP/(TP + FN). For high credit risk the sensitivity is 58/(58 + 29) which is approximate 0.67. The low sensitivity for the high risk classification indiates a lot of false negatives (it incorrectly categorized 29 people as low-risk when they were actually high-risk). The low credit risk sensitivy was 13224/(13224 + 3894) which is about 0.77. This higher sensitivity means there were less incorrectly categorized people as high-risk when they were actually low-risk.
 
 ### Synthetic Minority Oversampling Technique (SMOTE)
 
