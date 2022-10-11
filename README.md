@@ -18,7 +18,19 @@ In this case, instances of the low credit risk class were selected randomly and 
 
 ![nro_accuracy](https://user-images.githubusercontent.com/107309793/194987665-15d29c8d-881a-4b68-8fac-f1cc32b210db.png)
 
-The accuracy score was about 0.72, meaning that the 
+The accuracy score was about 0.72, meaning that the logistic regression model was only able to accurately predict 72% of the credit risk classifications correctly.
+
+In addition to the `balanced_accuracy_score`, a `classification_report_imbalanced` was run to obtain precision and recall values for the logist regression model.
+
+![nro_report](https://user-images.githubusercontent.com/107309793/194988708-5a4c2257-b4bc-4c47-9f87-e27d7a6b6a58.png)
+
+The associated confusion matrix is as follows:
+
+![nro_matrix](https://user-images.githubusercontent.com/107309793/194990991-17078f1a-2b78-47a5-938e-9390a0841820.png)
+
+The precision, or the reliability of the model to classify correctly, is determined by the ratio TP/(TP + FP). For high credit risk (classified as 0) the precision is 58/(58 + 3894) which is approximately 0.01. For the low credit risk, it is 13224/(13224 + 29) which is approximately 1.00. The low precision value of 0.01 indicates that there are a lot of false positives (it predicted 3894 high risk candidates when there were truly only 58.) The high precision value of 1.00 likely indicates overfitting for the low-risk classification.
+
+The recall, or the ability of the model to 
 
 ### Synthetic Minority Oversampling Technique (SMOTE)
 
