@@ -34,6 +34,24 @@ The recall, or the ability of the model to classify high-risk/low-risk correctly
 
 ### Synthetic Minority Oversampling Technique (SMOTE)
 
+In this case, the number of high credit risk instances was also increased, however these instances weren't replicated (as was done to increase the minority population in naive random oversampling), they were interpolated; the values were created based on neighboring values.
+
+The balanced accuracy score was as follows:
+
+![smote_accuracy](https://user-images.githubusercontent.com/107309793/195218988-f90498ed-c6b9-446b-89bf-86e9a4930308.png)
+
+Again - the accuracy score was about 0.72, meaning that the logistic regression model was only able to accurately predict 72% of the credit risk classifications correctly. This is not an improved accuracy from the naive random oversampling method.
+
+Here is the `classification_report_imbalanced` and confusion matrix:
+
+![smote_report](https://user-images.githubusercontent.com/107309793/195219213-d248dd3a-afc2-4309-a4dd-573cf7ab4dab.png)
+
+![smote_matrix](https://user-images.githubusercontent.com/107309793/195219222-56bcfc67-8d01-47b4-84b4-860e1fd21d59.png)
+
+The classification report looks identical to the report with naive random oversampling; precision of 0.01 for high credit risk, 1.00 for low credit risk, a recall of 0.67 for high, and 0.77 for low risk. The same failings of the logistic regression model described above apply here also.
+
+Interestingly there is a small difference seen in the confusion matrix for SMOTE. The number of false positives (model predicted 0 when the test was actually 1) went up compared to the naive random sampling method (from 3894 to 3918). This indicates that the precision was even worse in this case; the model is even less likely to classify high risk (goes down to 0.0146 from 0.0147). Lastly, the true negatives (model predicted 1 correctly) went down (from 13224 to 13200) indicating that the sensitivity for low credit risk decreases slightly (goes down to 0.771 from 0.772). This model is worse at accurately classifying low credit risk.
+
 ### Cluster Centroid Undersampling
 
 ### SMOTE and Edited Nearest Neighbors (ENN) Combination Sampling
