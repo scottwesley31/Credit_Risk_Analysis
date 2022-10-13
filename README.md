@@ -54,6 +54,24 @@ Interestingly there is a small difference seen in the confusion matrix for SMOTE
 
 ### Cluster Centroid Undersampling
 
+In cluster centroid undersampling, the algorithm determines low credit risk clusters within the dataset (data points that reside closely together) and then generates centroids (synthetic data points) which represent the whole cluster. The number of low credit risk centroids is decreased to the size of the high credit risk class. Logistic regression was then applied to this dataset again.
+
+The balanced accuracy score for is as follows:
+
+![ccu_accuracy](https://user-images.githubusercontent.com/107309793/195724127-09fc8878-5f77-49e5-b06b-80f3349de179.png)
+
+The overall accuracy went down from the oversampling examples (down to 69% from 72%). This indicates that more low/high credit risk datapoints were classified incorrectly.
+
+Here is the `classification_report_imbalanced` and confusion matrix:
+
+![ccu_report](https://user-images.githubusercontent.com/107309793/195724813-19fc12e9-c22f-4fdc-b72b-c6a1fa17b2c4.png)
+
+![ccu_matrix](https://user-images.githubusercontent.com/107309793/195724823-52746815-027d-459c-910f-17c8658f87fa.png)
+
+After undersampling, the matrix shifts quite a bit. The logistic regression model predicts high credit risk incorrectly more often (11138 compared to 3894 and 3918) and low credit risk incorrectly less often (15 compared to 29 and 29). Despite the shift in the number of false negatives and false positives, the precision does not change significantly (0.01 for high credit risk and 1.00 for low credit risk).
+
+It is noticeable that the sensitivity for high credit risk improves significantly (from 0.67 to 0.83); however, this is not without a drop in sensitivity for low credit risk (down to 0.35 from 0.77 in both oversampling techniques).
+
 ### SMOTE and Edited Nearest Neighbors (ENN) Combination Sampling
 
 ### Balanced Random Forest Classifier
