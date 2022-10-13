@@ -64,15 +64,32 @@ The overall accuracy went down from the oversampling examples (down to 69% from 
 
 Here is the `classification_report_imbalanced` and confusion matrix:
 
-![ccu_report](https://user-images.githubusercontent.com/107309793/195724813-19fc12e9-c22f-4fdc-b72b-c6a1fa17b2c4.png)
+![ccu_report](https://user-images.githubusercontent.com/107309793/195727459-fa39dd2a-4154-40ae-90d2-f64875b8b2f1.png)
 
-![ccu_matrix](https://user-images.githubusercontent.com/107309793/195724823-52746815-027d-459c-910f-17c8658f87fa.png)
+![ccu_matrix](https://user-images.githubusercontent.com/107309793/195727463-e9eb932e-2603-45a9-a595-5c5733f35563.png)
 
-After undersampling, the matrix shifts quite a bit. The logistic regression model predicts high credit risk incorrectly more often (11138 compared to 3894 and 3918) and low credit risk incorrectly less often (15 compared to 29 and 29). Despite the shift in the number of false negatives and false positives, the precision does not change significantly (0.01 for high credit risk and 1.00 for low credit risk).
+After undersampling, the matrix shifts quite a bit. The logistic regression model predicts high credit risk incorrectly more often (11765 compared to 3894 and 3918) and low credit risk about the same as before (27 compared to 29 and 29). Despite the shift in the number of false negatives and false positives, the precision does not change significantly (0.01 for high credit risk and 1.00 for low credit risk).
+
+It is noticeable that the sensitivity for high credit risk improves slightly (from 0.67 to 0.69) and the low credit risk sensitivity drops also (down to 0.69 from 0.77 in both oversampling techniques). This results in a rather balanced sensitivity for both high and low credit risk.
+
+### SMOTE and Edited Nearest Neighbors (ENN) Combination Sampling (SMOTEENN)
+The final resampling technique employed to a logistic regression model was SMOTEENN. This combines the SMOTE and ENN algorithms. In this case, the high credit risk class was oversampled via synthetically generated datapoints. This is then followed by an undersampling where the two credit classes overlap.
+
+Here is the new balanced accuarcy score with this technique:
+
+![SMOTEENN_accuracy](https://user-images.githubusercontent.com/107309793/195726765-d166630a-79ad-4e46-9b48-a012edaa13ad.png)
+
+The accuracy drops even further to 59% overall. High credit risk and low credit risk classification has a high chance of being incorrect with this logistic regression model.
+
+Here are the rest of the results:
+
+![SMOTEENN_matrix](https://user-images.githubusercontent.com/107309793/195727972-c6157a15-f917-4460-a682-6ce3fdef5bb5.png)
+
+![SMOTEEN_report](https://user-images.githubusercontent.com/107309793/195727977-35c7d300-2413-4f1b-809f-cbfd12834dd2.png)
+
+After undersampling, the matrix shifts quite a bit. The logistic regression model predicts high credit risk incorrectly more often (11765 compared to 3894 and 3918) and low credit risk incorrectly less often (15 compared to 29 and 29). Despite the shift in the number of false negatives and false positives, the precision does not change significantly (0.01 for high credit risk and 1.00 for low credit risk).
 
 It is noticeable that the sensitivity for high credit risk improves significantly (from 0.67 to 0.83); however, this is not without a drop in sensitivity for low credit risk (down to 0.35 from 0.77 in both oversampling techniques).
-
-### SMOTE and Edited Nearest Neighbors (ENN) Combination Sampling
 
 ### Balanced Random Forest Classifier
 
