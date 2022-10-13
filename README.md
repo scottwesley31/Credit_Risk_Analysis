@@ -12,7 +12,11 @@ The credit card dataset was cleaned, split into features (all of the dependent d
 
 This shows that only 347 datapoints are high credit risk while the other 68,470 datapoints are low credit risk. Due to this highly imbalanced dataset, resampling techniques were employed to balance the two classifications. **Logistic regression** was tested following these sampling techniques. The results are described below.
 
-### Naive Random Oversampling
+Note: Due to the high variation in value ranges between features, the dataset was scaled following resampling and prior to running through the machine learning models.
+
+### Resampling
+
+#### Naive Random Oversampling
 
 In this case, instances of the low credit risk class were selected randomly and added to the training set until the high risk and low risk class were balanced. A `balanced_accuracy_score` was used to compute accuracy; this takes into account that this dataset was initially imbalanced and subsequently adjusted.
 
@@ -32,7 +36,7 @@ The precision, or the reliability of the model to predict the actual likelihood 
 
 The recall, or the ability of the model to classify high-risk/low-risk correctly is determined by the ratio TP/(TP + FN). For high credit risk the sensitivity is 58/(58 + 29) which is approximate 0.67. The low sensitivity for the high risk classification indiates a lot of false negatives (it incorrectly categorized 29 people as low-risk when they were actually high-risk). The low credit risk sensitivy was 13224/(13224 + 3894) which is about 0.77. This higher sensitivity means there were less incorrectly categorized people as high-risk when they were actually low-risk.
 
-### Synthetic Minority Oversampling Technique (SMOTE)
+#### Synthetic Minority Oversampling Technique (SMOTE)
 
 In this case, the number of high credit risk instances was also increased, however these instances weren't replicated (as was done to increase the minority population in naive random oversampling), they were interpolated; the values were created based on neighboring values.
 
@@ -52,7 +56,7 @@ The classification report looks identical to the report with naive random oversa
 
 Interestingly there is a small difference seen in the confusion matrix for SMOTE. The number of false positives (model predicted 0 when the test was actually 1) went up compared to the naive random sampling method (from 3894 to 3918). This indicates that the precision was even worse in this case; the model is even less likely to classify high risk (goes down to 0.0146 from 0.0147). Lastly, the true negatives (model predicted 1 correctly) went down (from 13224 to 13200) indicating that the sensitivity for low credit risk decreases slightly (goes down to 0.771 from 0.772). This model is worse at accurately classifying low credit risk.
 
-### Cluster Centroid Undersampling
+#### Cluster Centroid Undersampling
 
 In cluster centroid undersampling, the algorithm determines low credit risk clusters within the dataset (data points that reside closely together) and then generates centroids (synthetic data points) which represent the whole cluster. The number of low credit risk centroids is decreased to the size of the high credit risk class. Logistic regression was then applied to this dataset again.
 
@@ -72,7 +76,7 @@ After undersampling, the matrix shifts quite a bit. The logistic regression mode
 
 It is noticeable that the sensitivity for high credit risk improves slightly (from 0.67 to 0.69) and the low credit risk sensitivity drops also (down to 0.69 from 0.77 in both oversampling techniques). This results in a rather balanced sensitivity for both high and low credit risk.
 
-### SMOTE and Edited Nearest Neighbors (ENN) Combination Sampling (SMOTEENN)
+#### SMOTE and Edited Nearest Neighbors (ENN) Combination Sampling (SMOTEENN)
 The final resampling technique employed to a logistic regression model was SMOTEENN. This combines the SMOTE and ENN algorithms. In this case, the high credit risk class was oversampled via synthetically generated datapoints. This is then followed by an undersampling where the two credit classes overlap.
 
 Here is the new balanced accuarcy score with this technique:
@@ -91,8 +95,29 @@ After undersampling, the matrix shifts quite a bit. The logistic regression mode
 
 It is noticeable that the sensitivity for high credit risk improves significantly (from 0.67 to 0.83); however, this is not without a drop in sensitivity for low credit risk (down to 0.35 from 0.77 in both oversampling techniques).
 
-### Balanced Random Forest Classifier
+### Ensemble Machine Learning
 
-### Easy Ensemble AdaBoost Classifier
+In the next two analyses, two different machine learning models were applied to the imbalanced high/low credit risk dataset. The dataset was scaled prior to employing the algorithms.
+
+#### Balanced Random Forest Classifier
+In this analysis, a type of random forest classifier is run: `BalancedRandomForestClassifier`. This utilizes a decision tree to determine high credit risk and low credit risk from the dataset features, but splits this up into many small decision trees. This classifier takes into account some random undersampling.
+
+The `balanced_accuracy_score` is as follows:
+
+![brf_accuracy](https://user-images.githubusercontent.com/107309793/195729739-9bce40bb-0ad4-4e0e-ad7b-7625e5d77d0e.png)
+
+Up to this point, the `BalancedRandomForestClassifier` generates the highest accuracy score (about 77%). This is up from 72% compared to the two oversampling techniques. This model does a better job at classifying high and low risk overall.
+
+Here is the `confusion_matrix` and the imbalanced classification report:
+
+![brf_matrix](https://user-images.githubusercontent.com/107309793/195731209-c713e7e1-b1c6-4ba3-90de-1846edd462d1.png)
+
+![brf_report](https://user-images.githubusercontent.com/107309793/195731217-fb86b23d-35fc-4f40-a658-498894b50886.png)
+
+This model predicted 1958 false positives (for high credit risk) and 30 false negatives (for low credit risk). These are both improvements compared to all of the other models up to this point. Despite this fact, the precision still remains overfitted to low credit risk (0.03 for high and 1.00 for low).
+
+The recall values shift in favor of low risk credit at 0.89. This indicates that a consumer that is classified as low credit risk is more likely to be classified correctly. There's sensitivity for high risk credit is still at a similar value as previous models (0.66 in this case).
+
+#### Easy Ensemble AdaBoost Classifier
 
 ## Summary
