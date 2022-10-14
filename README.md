@@ -119,5 +119,23 @@ This model predicted 1958 false positives (for high credit risk) and 30 false ne
 The recall values shift in favor of low risk credit at 0.89. This indicates that a consumer that is classified as low credit risk is more likely to be classified correctly. There's sensitivity for high risk credit is still at a similar value as previous models (0.66 in this case).
 
 #### Easy Ensemble AdaBoost Classifier
+In this last analysis, a form of adaptive boosting is applied to the dataset: the `EasyEnsembleClassifier`. It evaluates errors as the model is trained which minimizes errors in subsequent models. The goal is to minimize error overall in determining a consumer's classification.
+
+Here is the accuracy score:
+
+![ee_accuracy](https://user-images.githubusercontent.com/107309793/195733336-533aa60c-7a55-4a29-8807-d4f695124b18.png)
+
+This model has the highest accuracy at 92%.
+
+Here is the confusion matrix and report:
+
+![ee_matrix](https://user-images.githubusercontent.com/107309793/195733378-a25b9b87-4f57-44af-8765-0067726b959c.png)
+
+![ee_report](https://user-images.githubusercontent.com/107309793/195733389-57174b4d-2da5-4580-a12c-a2e909667c04.png)
+
+Looking at the matrix, the false positives for high credit risk and false negatives for low credit risk were reduced down to their smallest values compared to the other models (994 and 8 respectively). This results in a precision improvement for high credit risk (0.07).
+
+The sensitivity for both high and low credit risk also improves signifantly (0.91 and 0.94).
 
 ## Summary
+
