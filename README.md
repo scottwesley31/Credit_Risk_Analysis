@@ -139,3 +139,19 @@ The sensitivity for both high and low credit risk also improves signifantly (0.9
 
 ## Summary
 
+Here's a succinct summary of all of the results from every machine learning model (accuracy, precision for high credit risk & precision for low credit risk, recall for high credit risk & recall for low credit risk):
+
+**Resampling**
+
+- Naive Random Oversampling: 0.72, 0.01 & 1.00, 0.67 & 0.77
+- SMOTE: 0.72, 0.01 & 1.00, 0.67 & 0.77
+- Cluster Centroid Undersampling: 0.69, 0.01 & 1.00, 0.69 & 0.69
+- SMOTEENN: 0.59, 0.01 & 1.00, 0.83 & 0.35
+
+**Ensemble Machine Learning**
+
+- Balanced Random Forest Classifier: 0.77, 0.03 & 1.00, 0.66 & 0.89
+- Easy Ensemble AdaBoost Classifier: 0.92, 0.07 & 1.00, 0.91 & 0.94
+
+In the scenario of evaluating whether a candidate is high credit risk or low credit risk for distributing a loan, it makes the most sense to minimize false negatives (predicting that a candidate is low credit risk when they are actually high credit risk). This means that the most optimal model will have a high precision for low credit risk (TN/(TN+FN)) and a high sensitivity for high credit risk (TP/(TP + FN)). Due to the imbalanced nature of this dataset, all of the models have a high precision for low credit risk (1.00). There is one model that has the highest sensitivity for high credit risk; the **Easy Ensemble AdaBoost Classifier** (0.91). This model also has the highest accuracy (0.92). This model would be the best choice for predicting high credit risk and minimizing false negatives. This model also minimizes false positives which will prevent too many people from being classified as high risk when they aren't.
+
